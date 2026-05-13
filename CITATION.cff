@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this software in research, please cite it as below."
+type: software
+title: "Biomedical Research Skills for Claude Code"
+abstract: >-
+  A curated pack of senior-level skills for Claude Code targeted at biomedical
+  researchers: clinical writing, medical imaging methodology, statistical
+  reporting, fellowship and grant applications, scientific software
+  engineering, medical hardware design, and open source contribution.
+authors:
+  - family-names: "El Arfaoui Belbouli"
+    given-names: "Wasim"
+    email: "elarfaouiwasim@gmail.com"
+version: "0.1.0"
+date-released: "2026-05-12"
+license: Apache-2.0
+repository-code: "https://github.com/WElArfaoui/biomedical-research-skills"
+url: "https://github.com/WElArfaoui/biomedical-research-skills"
+keywords:
+  - claude-code
+  - claude-skills
+  - biomedical-research
+  - medical-imaging
+  - clinical-research
+  - bioinformatics
+  - scientific-writing
+  - grant-writing
+  - radiomics
+  - deep-learning
+  - reporting-guidelines
+  - tripod-ai
+  - open-source

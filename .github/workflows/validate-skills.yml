@@ -1,0 +1,54 @@
+name: Validate skills
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'skills/**'
+      - 'install/validate.py'
+      - '.github/workflows/validate-skills.yml'
+  pull_request:
+    paths:
+      - 'skills/**'
+      - 'install/validate.py'
+
+jobs:
+  validate:
+    name: Validate SKILL.md frontmatter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Validate all skills
+        run: python3 install/validate.py
+
+  no-personal-references:
+    name: Check no personal/institutional references slipped in
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Grep for personal references
+        run: |
+          FOUND=0
+          for pattern in "IRBLleida" "HUAV" "Ferran Barbé" "Iván Benítez" \
+                         "Jessica González" "IELCAP-Lleida" "CT-LungScore" \
+                         "DicomShield" "HPCDash" "RadBot" "GenomeMC" \
+                         "NoduleExplorer" "PaperScore" "Wasim El Arfaoui"; do
+            if grep -r -q "$pattern" skills/; then
+              echo "::error::Personal reference still present: $pattern"
+              FOUND=1
+            fi
+          done
+          if [ $FOUND -eq 1 ]; then
+            echo "Run ./install/sanitize.sh to clean these references before publishing."
+            exit 1
+          fi
+          echo "No personal references detected."
